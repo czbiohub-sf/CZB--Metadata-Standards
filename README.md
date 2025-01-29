@@ -1,2 +1,2 @@
 # CZB--Metadata-Standards
-Easily-accesible documentation site for CZB's metadata standards efforts
+Easily-accesible helper site for CZB's metadata standards documentation efforts. Please visit [this site](https://chatgpt.com/g/g-6798f73de93c8191953aab4c0648772a-czb-platform-metadata-explainer) for assistance understanding the standards.
