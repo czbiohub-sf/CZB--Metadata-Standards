@@ -61,7 +61,7 @@ To enable reanalysis efforts and AI integration, all critical metadata **MUST** 
 
 [XI. Platform Ontology and Annotation Standards](#platform-ontology-and-annotation-standards)
 
-[XII. AI-Forward Data and Metadata Planning](#data-packaging-for-external-transmission)
+[XII. Data Packaging for External Transmission](#data-packaging-for-external-transmission)
 
  
 ---
@@ -352,7 +352,7 @@ Workflow file standardization is equally critical for ensuring consistent search
 * **Format:** DateMade\_SoftwareVersion\_PertinentInfo1-PertinentInfo2.workflow  
   * Example: 20240403\_FP22\_TLG1002-phosSTY-DIA-DDA.workflow
 
-### ZB Data Processing Metadata Standards
+### CZB Data Processing Metadata Standards
 
 <p align="center">
   <img src="images/pipeline.png" />
@@ -491,7 +491,7 @@ The pipeline outputs several tables, plots, and summaries for the files in the e
 | Pos\_mode\_group\_significance\_testing.csv | All vs. all statistical comparisons for positive-mode data |
 | Neg\_mode\_group\_significance\_testing.csv | All vs. all statistical comparisons for negative-mode data |
 
-### VII. CZB Sample-Level Metadata Standards
+### CZB Sample-Level Metadata Standards
 
 <p align="center">
   <img src="images/sample_metadata.png" />
