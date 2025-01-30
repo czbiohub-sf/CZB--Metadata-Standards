@@ -99,11 +99,11 @@ Manufacturer-specific file formats like RAW (Thermo Scientific) and .d (Bruker) 
 
 Open-source data formats like mzData and mzXML initially emerged in 2003 but were replaced by mzML in 2008\. [mzML](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3073315/) is now a major open-source standard that is both widely used and [actively maintained](https://github.com/HUPO-PSI/mzML). It is preferred by many analysis tools and public repositories. mzML files are easily converted from the RAW format using tools like [ProteoWizard](https://proteowizard.sourceforge.io/) and [ThermoRawFileParser](https://github.com/compomics/ThermoRawFileParser). Bruker’s timsTOF machines generate .d folders, which can be converted to mzML, though with [limitations](https://fragpipe.nesvilab.org/docs/tutorial_convert.html) like missing ion mobility data for MS1 quantification. Despite this, free software, supported by Bruker’s SDK and [OpenTIMS](https://github.com/michalsta/opentims), can natively read and search .d folders, making the lack of conversion alternatives less critical for CZB standards.
 
-Other storage formats, such as [HDF5 variants](https://www.mcponline.org/article/S1535-9476\(20\)30559-4/fulltext), have been proposed, offering extremely fast and efficient read/write access and a flexible structure ideal for MS data and metadata. While these formats currently lack native support on major search platforms, this is beginning to change with emerging support from platforms like [Alphapept](https://www.nature.com/articles/s41467-024-46485-4) and [SkylineMS](https://skyline.ms/). As this area evolves, these formats may influence CZB MS data and metadata standards in the near future.
+Other storage formats, such as [HDF5 variants](https://www.mcponline.org/article/S1535-9476\(20\)30559-4/fulltext), have been proposed and offer extremely fast and efficient read/write access and a flexible structure ideal for MS data and metadata. While these formats currently lack native support on major search platforms, this is beginning to change with emerging support from platforms like [Alphapept](https://www.nature.com/articles/s41467-024-46485-4) and [SkylineMS](https://skyline.ms/). As this area evolves, these formats may influence CZB MS data and metadata standards in the near future.
 
 ##### Sample Metadata Format Standards 
 
-As for data formats, CZB is committed to adopting FAIR principles for sample-level metadata standards. A significant data format that was developed for organizing and sharing experimental metadata in a standardized way is [MAGE-TAB](https://www.ebi.ac.uk/training/online/courses/array-express-discover-functional-genomics-data-quickly-and-easily/how-are-datasets-submitted-and-stored-in-arrayexpress/metadata-is-stored-in-mage-tab-format/), which was originally created for microarray data but now widely used in transcriptomics. MAGE-TAB is a standardized tabular format that records necessary and customizable metadata categories for each sample on a row-by-row basis. It has been extended by the Human Proteome Organization’s (HUPO) Proteomics Standards Initiative (PSI) to accommodate proteomics data.
+CZB is committed to adopting FAIR principles for sample-level metadata standards. A significant data format that was developed for organizing and sharing experimental metadata in a standardized way is [MAGE-TAB](https://www.ebi.ac.uk/training/online/courses/array-express-discover-functional-genomics-data-quickly-and-easily/how-are-datasets-submitted-and-stored-in-arrayexpress/metadata-is-stored-in-mage-tab-format/), which was originally created for microarray data but now widely used in transcriptomics. MAGE-TAB is a standardized tabular format that records necessary and customizable metadata categories for each sample on a row-by-row basis. It has been extended by the Human Proteome Organization’s (HUPO) Proteomics Standards Initiative (PSI) to accommodate proteomics data.
 
 ![#img-simple](images/sdrf-nutshell.png)
 <p style="text-align:center;">Picture courtesy of HUPO PSI documentation</p>
@@ -112,17 +112,17 @@ The MAGE-TAB Proteomics format consists of two components: 1\) the IDF (Investig
 
 The MAGE-TAB format may also be adapted for metabolomics and lipidomics, with export scripts transforming it into [mwTab](https://github.com/MoseleyBioinformaticsLab/mwtab) (.mwTab) format for ease of submission to metabolomic file repositories ([Metabolomics Workbench](https://academic.oup.com/nar/article/44/D1/D463/2502588) and its European counterpart [MetaboLights](https://www.ebi.ac.uk/metabolights/)).
 
-##### Experiment and Project Metadata Format Standards
+#### Experiment and Project Metadata Format Standards
 
 Experiment- and project-level metadata often includes standardized parameters but for the sake of completeness, often needs to include more free-form metadata. As such experiment- and project-level metadata standards need the ability to combine standardized fields with flexible entries. To this end, the [Investigation, Study, Assay](https://isa-tools.org/index.html) (ISA) has a suite of [standardized tools](https://github.com/orgs/ISA-tools/repositories?type=all) to annotate experiment and project level metadata. The [ISA-TAB](https://isa-specs.readthedocs.io/en/latest/isatab.html) file system provides a unique mix of standardized fields and extensibility in a convenient tabular format. In particular, the “Investigation” tables, whose goal is to provide information on the investigation, study, and assay in a columnar fashion, would be easily parsed by tools. While not all fields are useful for our purposes, we can modify the included information for use as a base to generate a metadata standard. Of note, some fields required for **compliance** with ISA-TAB standards are likely to cause significant collection issues and/or are not applicable (this view is also informed by CZI CellxGene metadata teams’ experience). Thus, while we will use ISA-TAB as a base, the categories collected will largely be a mix of ISA-TAB standardized and custom categories. We will, as much as possible, attempt to adhere to the standards and, if necessary, backfill categories we do not collect prior to any repository submission. 
 
-##### Supporting File Standards
+#### Supporting File Standards
 
-##### File Naming Standards
+**File Naming Standards**
 
 Standardizing file naming for supporting files, such as workflow and FASTA files, is crucial for ensuring consistent results across experiments. For example, a standardized FASTA file naming convention can ensure the same sequences are searched across a group of experiments, facilitating future comparisons using the same search parameters. Despite the importance, there has yet to be a concerted effort within the MS community to establish file naming best practices. As such we have added naming conventions for all files, which can be seen at various sections in this document.
 
-##### File Internal Formatting
+**File Internal Formatting**
 
 FASTA files identify a protein via its metadata and sequence but have limitations. Minimally encoded information can hinder downstream analysis, and the lack of annotations for attributes such as sequence variants and post-translational modifications (PTMs) can bloat files with multiple forms of the same protein, posing a challenge in proteogenomics. HUPO-PSI addressed these issues with Protein Extended FASTA Format (PEFF), adding header information. More recently, ProForma 2.0 notation was developed to encode proteoform data, but support for [PEFF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6642660/) and ProForma 2.0 is still limited, with [ProForma 2.0](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612572/) not yet supporting multi-protein searches. While both formats are of interest in the future, their current limited support within search engines limits their utility to the platform.
 
@@ -243,7 +243,7 @@ The criteria for moving a file from development to production is:
 3) Results from above are extracted and compared to previous results and do not cause an unexplainable loss in correlation at the sample-to-sample level.  
 4) Comparisons of peptide and protein IDs are equivalent or increased with the same parameters.
 
-##### Establishment of Test Datasets
+#### Establishment of Test Datasets
 
 In order to facilitate file evaluation as described above, test datasets must be established. These **SHOULD** reflect the most common experimental assay types experienced by the platform, but **MUST** include the following:
 
@@ -252,7 +252,7 @@ In order to facilitate file evaluation as described above, test datasets must be
 3. **Proteomics** \- At least 3 datasets each for any additional common experiment types (TMT-labeled sample sets, MHC immunoprecipitation, etc.). This ensures that a single dataset with either very high or very low quality does not bias unit tests.  
 4. **Metabolomics/lipidomics** \- At least 3 datasets for testing new spectral libraries, and at least 10 datasets for testing new versions of MS-Dial.
 
-##### FASTA Files
+#### FASTA Files
 
 Standardizing FASTA files is essential for achieving consistent results and enabling cross-omics standardization, particularly between proteomics and transcriptomics. The CZB MS platform has implemented a dual system of standardized (“Base”) and custom FASTA files. A database of FASTA files **SHALL** be established and maintained by BulkLoader, with each file recorded using an auto-incrementing index ID for unique identification and reference purposes, along with the following fields:
 
@@ -293,7 +293,7 @@ Standardizing FASTA files is essential for achieving consistent results and enab
     * 20240730\_uniprot-Cov2Sequencing\_HomoSapiens-COV2\_CowContam-rev-unrev\_custom.fasta  
     * 20240520\_refseq-wgc\_HomoSapiens-Cohort34\_TLG34\_custom.fasta
 
-##### Spectral Libraries \- Proteomics
+#### Spectral Libraries \- Proteomics
 
 Spectra libraries **MUST** be formatted in a similar manner to those of custom FASTA files. Since proteomic spectral libraries are generated from DDA runs using a standard FASTA file, this file **MUST** be referenced via a combination of the source acronym and species name.
 
@@ -315,7 +315,7 @@ Alternatively, the FASTA database indexID can be used:
     * 20240345\_23-43-45\_HomoSapiens-EscherichiaColi-DanioRerio\_SISO003\_custom.tsv  
     * 20240523\_UP-UP\_DanioRerio-KlebsiellaPneumoniae\_SIFA002\_custom.speclib
 
-##### Spectral Libraries \- Metabolomics
+#### Spectral Libraries \- Metabolomics
 
 Metabolites have little to no species specificity and thus do not require species-specific spectral libraries. CZB metabolite spectral libraries come from local and global sources.
 
@@ -327,13 +327,13 @@ The spectral libraries for metabolomics are curated in-house and updated periodi
 
 * **Example:** negMSP\_HILIC\_Oct2023.msp
 
-##### Spectral Libraries \- Lipidomics
+#### Spectral Libraries \- Lipidomics
 
 Spectral libraries for lipidomics are IBM2 (.ibm2) files embedded in the MS-Dial version used. These files are not text-readable. Similar to metabolomics libraries, lipidomics libraries are saved in the project folder and kept with the result files for later reference as MSP2 files. They are date- and time-stamped at the time of processing. Formatting **MUST** adhere to the following convention: year\_month\_day\_hour\_minute\_second\_Loaded.msp2
 
 * **Example:** 2024\_8\_5\_14\_14\_20\_Loaded.msp2
 
-##### Software Workflow Files
+#### Software Workflow Files
 
 Workflow file standardization is equally critical for ensuring consistent search results. As with FASTA files, workflow files should be organized into subsets to support both standardized searches—suitable for the majority of experiments—and custom search parameters designed for specific purposes. Given the variety of search software available, it is beyond the scope of this document to enumerate every parameter and workflow file. However, the following naming conventions **MUST** be applied, similar to those used for FASTA files, with some modifications.
 
@@ -360,7 +360,7 @@ Workflow file standardization is equally critical for ensuring consistent search
 
 Data processing encompasses the computational transformation of raw spectral data (whether in open-source or vendor-locked format) into human-readable feature x sample tables, as well as the downstream processing of these tables, including normalization, transformations, and general statistical analyses. For proteomics, we currently utilize several search platforms, including MaxQuant, FragPipe (v22), DIA-NN, and PEAKS. FragPipe is the default search engine for automated searches due to its command-line compatibility. In metabolomics, MS-Dial is the primary tool used for matching spectra to features.
 
-##### Raw → Unfiltered Tables
+#### Raw → Unfiltered Tables
 
 While the general structure of the data processing pipeline is similar for both proteomics and metabolomics, the specific details—especially concerning the software used to match spectra to features—vary. The intricacies of each workflow file used by the platform are beyond the scope of this document. However, below are the details of settings used to search a typical label-free dataset. This example is provided solely to illustrate the **type of data** collected in workflow files; actual workflow files capture much more extensive parameter information:
 
@@ -417,7 +417,7 @@ Searches output several files, of which **“combined\_protein.tsv”** and **�
          3) Peak count filter (%): 0–100 depending on study design  
          4) N% detected in at least one group: dependent on study design
 
-##### Unfiltered Tables → Processed Results
+#### Unfiltered Tables → Processed Results
 
 **CZB-Mass Spectrometry Analysis Platform (CZB-MAP)**
 
@@ -454,7 +454,7 @@ All tables (non-normalized, normalized, non-imputed, imputed) are saved to the C
 | Data | Houses all .csv tables generated by CZB-MAP (see table below for file descriptions) and commonly output tables from search software |
 | Plots | Houses all plots and reports generated by CZB-MAP |
 
-##### Processed Results → Save Outputs to Experiment Location
+#### Processed Results → Save Outputs to Experiment Location
 
 The pipeline outputs several tables, plots, and summaries for the files in the experiment. Below are tables outlining the data output and description.
 
@@ -506,7 +506,7 @@ The current workflow relies on three separate systems:
 
 3) **BulkLoader Integration**: Once the metadata is validated by BS3, it is passed on to BulkLoader, where additional metadata is appended to each sample row. This enriched metadata is then used to generate queue information for the mass spectrometers and is also logged internally to track experiment information on the HPC. In the near future, this information will also be fed back to the BS3 system, allowing it to store metadata for use in other applications.
 
-##### Capturing User Metadata with BS3 and BulkLoader
+#### Capturing User Metadata with BS3 and BulkLoader
 
 Currently, BS3 passes user-generated metadata to BulkLoader, which appends additional MS-specific information to each sample/row. BulkLoader operates on a machine-specific basis, meaning each mass spectrometer has an instance of BulkLoader running on its connected computer. BulkLoader writes data to various tables within a local SQLite database specific to each MS machine. Amongst this information, it captures most sample-level metadata currently stored in the x\_bulkLoadPerLoad table (where *x* represents the modality type: ‘p’ for proteomics and ‘MB’ for metabolomics).
 
@@ -555,7 +555,7 @@ Experiment-level metadata captures summary information about an entire experimen
 
 * **Tracking and Linking Datasets:** We are implementing tracking IDs that will allow us to associate experiments with linked datasets captured by different modalities. This integration will enable more seamless cross-modality analyses and enhance the overall data management framework.
 
-#### Captured Metadata
+#### Captured Sample Metadata
 
 Currently we capture the following information:
 
@@ -590,7 +590,7 @@ In this section, we will outline a proposed folder structure for cataloging and 
 | raw-files | Mass spectrometers | Raw data (vendor and open source format) |
 | reference-info | Search engines, BulkLoader | Accessory files (workflow, FASTA files, etc.) and sample-level metadata |
 
-##### Multi-Search Experiments
+#### Multi-Search Experiments
 
 Acquired spectral data are often re-searched with different workflows or parameters, with different reference databases, or simply to correct for errors that caused the search to fail. For this reason, each search engine result **MUST** be appended with a “machine\_x” with x signifying an incrementing numeric ID (in the screenshot above this relates to the “/Fragpipe/Lumos\_1”). All searches **MUST** begin the increment with “\_1”. Here are some examples of cases where this becomes critical:
 
