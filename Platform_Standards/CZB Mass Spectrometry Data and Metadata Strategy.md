@@ -6,7 +6,7 @@
 The key words **"MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED" "MAY", and "OPTIONAL"** in this document are to be interpreted as described in [BCP 14](https://tools.ietf.org/html/bcp14), [RFC2119](https://www.rfc-editor.org/rfc/rfc2119.txt), and [RFC8174](https://www.rfc-editor.org/rfc/rfc8174.txt) when, and only when, they appear in all capitals, as shown here.  
 
 
-### **Executive Summary**
+## **Executive Summary**
 
 This document outlines the strategy for establishing mass spectrometry data standards within the CZB ecosystem. These standards are designed to:
 
@@ -20,7 +20,7 @@ Platforms **MUST** generate both vendor-specific file formats such as RAW (.raw)
 
 ### **Data Processing and Metadata Standards** 
 
-Raw proteomic data **MUST** be processed using [FragPipe](https://fragpipe.nesvilab.org/), given its compatibility with Bruker timsTOF and Thermo Orbitrap data in both DDA (Data-Dependent Acquisition) and DIA (Data-Independent Acquisition) modes. However, additional search engines **MAY** also be used. All file locations, spectral databases (including FASTA files), and workflows **MUST** be organized in a manner that they are easily placed into easily transmissible objects such as “[Big Data Bags](https://ieeexplore.ieee.org/document/7840618)”. Metabolomics data **MUST** be processed using [MS-DIAL](https://systemsomicslab.github.io/compms/msdial/main.html) with an in-house spectral library that is shared across Biohubs. Both proteomics and metabolomics datasets **MUST** undergo initial quality control using [CZB-MAP](https://github.com/czbiohub-sf/CZB-MAP) automated profiling.
+Raw proteomic data **MUST** be processed using [FragPipe](https://fragpipe.nesvilab.org/), given its compatibility with Bruker timsTOF and Thermo Orbitrap data in both DDA (Data-Dependent Acquisition) and DIA (Data-Independent Acquisition) modes. However, additional search engines **MAY** also be used. All file locations, spectral databases (including FASTA files), and workflows **MUST** be organized in a manner that they can be placed into easily transmissible objects such as “[Big Data Bags](https://ieeexplore.ieee.org/document/7840618)”. Metabolomics data **MUST** be processed using [MS-DIAL](https://systemsomicslab.github.io/compms/msdial/main.html) with an in-house spectral library that is shared across Biohubs. Both proteomics and metabolomics datasets **MUST** undergo initial quality control using [CZB-MAP](https://github.com/czbiohub-sf/CZB-MAP) automated profiling.
 
 ### **Sample-Level Metadata Standards** 
 
@@ -66,11 +66,11 @@ To enable reanalysis efforts and AI integration, all critical metadata **MUST** 
  
 ---
 
-### I. Motivation
+## I. Motivation
 
 Mass spectrometry (MS)-based profiling of biological conditions plays a crucial role in many flagship projects in the CZ ecosystem, generating extensive datasets that inform the primary research and also provide valuable secondary data for other experiments and AI-driven biological model training. To maximize the utility and reusability of MS datasets, it is essential to establish common data and metadata standards that enable their effective integration with linked multi-omic datasets. By adhering to FAIR (Findable, Accessible, Interoperable, and Reusable) principles, these standards ensure that the data is valuable for both internal projects and the broader scientific community. This document outlines CZ Biohub’s data and metadata standards, guiding the generation, storage, and record-keeping of our MS data.
 
-### II. Objective
+## II. Objective
 
 **Describe, in detail:**
 
@@ -79,7 +79,7 @@ Mass spectrometry (MS)-based profiling of biological conditions plays a crucial 
 * the interaction between MS data and metadata standards and other CZB systems  
 * methods for accessing MS data and their associated metadata
 
-### III. Key Terms and Software Descriptions
+## III. Key Terms and Software Descriptions
 
 **Definitions of terms used throughout this document:**
 
@@ -91,9 +91,9 @@ Mass spectrometry (MS)-based profiling of biological conditions plays a crucial 
 6) **Metadata Portal:** custom-built web application that records datasets from multiple platforms at Biohub (including mass spectrometry, sequencing, and imaging).   
 7) **BulkLoader:** local custom-written application running on computers interfacing with CZB mass spectrometers (currently operational in SF and being ported to CHI). It manages several functions that include file management, mass spectrometer queue management, and the automation of raw data search operations.
 
-### IV. Influential Works 
+## IV. Background on Data and Metadata Standards 
 
-##### Data Format Standards 
+### Data Format Standards 
 
 Manufacturer-specific file formats like RAW (Thermo Scientific) and .d (Bruker) are optimized for their ecosystems but are not open-source, requiring significant investment to use. In response, the MS community developed open-source alternatives that are interoperable with major platforms and accepted by public repositories. The biological data type (metabolomics or proteomics) is irrelevant to these standards.
 
@@ -101,40 +101,43 @@ Open-source data formats like mzData and mzXML initially emerged in 2003 but wer
 
 Other storage formats, such as [HDF5 variants](https://www.mcponline.org/article/S1535-9476\(20\)30559-4/fulltext), have been proposed and offer extremely fast and efficient read/write access and a flexible structure ideal for MS data and metadata. While these formats currently lack native support on major search platforms, this is beginning to change with emerging support from platforms like [Alphapept](https://www.nature.com/articles/s41467-024-46485-4) and [SkylineMS](https://skyline.ms/). As this area evolves, these formats may influence CZB MS data and metadata standards in the near future.
 
-##### Sample Metadata Format Standards 
+### Sample Metadata Format Standards 
 
 CZB is committed to adopting FAIR principles for sample-level metadata standards. A significant data format that was developed for organizing and sharing experimental metadata in a standardized way is [MAGE-TAB](https://www.ebi.ac.uk/training/online/courses/array-express-discover-functional-genomics-data-quickly-and-easily/how-are-datasets-submitted-and-stored-in-arrayexpress/metadata-is-stored-in-mage-tab-format/), which was originally created for microarray data but now widely used in transcriptomics. MAGE-TAB is a standardized tabular format that records necessary and customizable metadata categories for each sample on a row-by-row basis. It has been extended by the Human Proteome Organization’s (HUPO) Proteomics Standards Initiative (PSI) to accommodate proteomics data.
 
-![#img-simple](images/sdrf-nutshell.png)
-<p style="text-align:center;">Picture courtesy of HUPO PSI documentation</p>
+<p align="center">
+  <img src="images/sdrf-nutshell.png" alt="SDRF format">
+  <br>
+  <em>Source: HUPO PSI documentation</em>
+</p>
 
 The MAGE-TAB Proteomics format consists of two components: 1\) the IDF (Investigation Description Format) file, an XML (.xml) file generated by [PRIDE’s submission tool](https://www.ebi.ac.uk/pride/markdownpage/pridesubmissiontool), capturing experiment-level metadata, and 2\) the SDRF-Proteomics (Sample and Data Relationship Format for Proteomics) file, a tabular file recording sample-level metadata, including sample conditions, manipulation, chemical labeling, etc, and their corresponding data files (e.g. RAW, mzML, or .d). MAGE-TAB’s compatibility with ProteomeXchange standards and its extensibility make it a highly attractive system for CZB.
 
 The MAGE-TAB format may also be adapted for metabolomics and lipidomics, with export scripts transforming it into [mwTab](https://github.com/MoseleyBioinformaticsLab/mwtab) (.mwTab) format for ease of submission to metabolomic file repositories ([Metabolomics Workbench](https://academic.oup.com/nar/article/44/D1/D463/2502588) and its European counterpart [MetaboLights](https://www.ebi.ac.uk/metabolights/)).
 
-#### Experiment and Project Metadata Format Standards
+### Experiment and Project Metadata Format Standards
 
-Experiment- and project-level metadata often includes standardized parameters but for the sake of completeness, often needs to include more free-form metadata. As such experiment- and project-level metadata standards need the ability to combine standardized fields with flexible entries. To this end, the [Investigation, Study, Assay](https://isa-tools.org/index.html) (ISA) has a suite of [standardized tools](https://github.com/orgs/ISA-tools/repositories?type=all) to annotate experiment and project level metadata. The [ISA-TAB](https://isa-specs.readthedocs.io/en/latest/isatab.html) file system provides a unique mix of standardized fields and extensibility in a convenient tabular format. In particular, the “Investigation” tables, whose goal is to provide information on the investigation, study, and assay in a columnar fashion, would be easily parsed by tools. While not all fields are useful for our purposes, we can modify the included information for use as a base to generate a metadata standard. Of note, some fields required for **compliance** with ISA-TAB standards are likely to cause significant collection issues and/or are not applicable (this view is also informed by CZI CellxGene metadata teams’ experience). Thus, while we will use ISA-TAB as a base, the categories collected will largely be a mix of ISA-TAB standardized and custom categories. We will, as much as possible, attempt to adhere to the standards and, if necessary, backfill categories we do not collect prior to any repository submission. 
+Experiment- and project-level metadata often include standardized parameters, but to ensure completeness, they also require more free-form entries. As such, metadata standards at these levels must support a combination of structured fields and flexible content. The [Investigation, Study, Assay](https://isa-tools.org/index.html) (ISA) framework provides a standardized structure for organizing experiment- and project-level metadata, supported by a suite of [tools](https://github.com/orgs/ISA-tools/repositories?type=all) that facilitate metadata curation, validation, and conversion into interoperable formats. The [ISA-TAB](https://isa-specs.readthedocs.io/en/latest/isatab.html) file format provides a structured yet flexible framework that combines standardized fields with extensibility in a tabular format. In particular, the “Investigation” tables, whose goal is to provide information on the investigation, study, and assay in a columnar fashion, would be easily parsed by tools. While not all fields are useful for our purposes, we can modify the included information for use as a base to generate a metadata standard. Of note, some fields required for **compliance** with ISA-TAB standards are likely to cause significant collection issues and/or are not applicable (this view is also informed by CZI CellxGene metadata teams’ experience). Thus, while we will use ISA-TAB as a base, the categories collected will largely be a mix of ISA-TAB standardized and custom categories. We will, as much as possible, attempt to adhere to the standards and, if necessary, backfill categories we do not collect prior to any repository submission. 
 
-#### Supporting File Standards
+### Supporting File Standards
 
-**File Naming Standards**
+#### File Naming Standards
 
 Standardizing file naming for supporting files, such as workflow and FASTA files, is crucial for ensuring consistent results across experiments. For example, a standardized FASTA file naming convention can ensure the same sequences are searched across a group of experiments, facilitating future comparisons using the same search parameters. Despite the importance, there has yet to be a concerted effort within the MS community to establish file naming best practices. As such we have added naming conventions for all files, which can be seen at various sections in this document.
 
-**File Internal Formatting**
+#### File Internal Formatting
 
 FASTA files identify a protein via its metadata and sequence but have limitations. Minimally encoded information can hinder downstream analysis, and the lack of annotations for attributes such as sequence variants and post-translational modifications (PTMs) can bloat files with multiple forms of the same protein, posing a challenge in proteogenomics. HUPO-PSI addressed these issues with Protein Extended FASTA Format (PEFF), adding header information. More recently, ProForma 2.0 notation was developed to encode proteoform data, but support for [PEFF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6642660/) and ProForma 2.0 is still limited, with [ProForma 2.0](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612572/) not yet supporting multi-protein searches. While both formats are of interest in the future, their current limited support within search engines limits their utility to the platform.
 
-#### Aggregate-Level Metadata Standards
+### Aggregate-Level Metadata Standards
 
-Efforts to standardize aggregate-level metadata, covering groups of files and their experimental conditions, have been limited. While sample-level metadata is well-defined, standards for experiment- and project-level metadata are still lacking. The [ISA](https://isa-specs.readthedocs.io/en/latest/index.html) standards, designed to capture critical metadata across platforms, should serve as a foundational object included in Biohub data “Data Bags” for use in data storage services such as Amazon S3 or Globus.
+Efforts to standardize aggregate-level metadata, covering groups of files and their experimental conditions, have been limited. While sample-level metadata is well-defined, standards for experiment- and project-level metadata are still lacking. The [ISA standards](https://isa-specs.readthedocs.io/en/latest/index.html), designed to capture critical metadata across platforms, should serve as a foundational object included in Biohub “Data Bags” for use in data storage services such as Amazon S3 or Globus.
 
-#### Additional Metadata Considerations
+### Additional Metadata Considerations
 
-Beyond MS data-centric standards, significant work has been done to standardize the recording of experimental protocols, ensuring consistency in sample processing pipelines. This information is often captured within the ISA standards, particularly in JSON files or other hierarchical formats.
+Beyond data-centric standards for MS, significant work has been done to standardize the recording of experimental protocols, ensuring consistency in sample processing pipelines. This information is often captured using the ISA framework, particularly in JSON files or other hierarchical formats.
 
-### V. Summary of Data and Metadata Ecosystem
+## V. Summary of Data and Metadata Ecosystem
 
 <p align="center">
   <img src="images/overview.png" />
@@ -162,51 +165,47 @@ The data processing ecosystem records the processes involved in converting raw d
 
 #### External Interactions
 
-This section outlines the standards for how external systems, such as the BS3 and Metadata Portal, interact with MS data and metadata. It describes database schemas, how they are influenced by external systems, and the methods for transferring data from local storage to backup and processing locations. These interactions ensure the smooth integration of MS data into broader Biohub systems and external platforms.
+The standards for how external systems, such as BS3 and the Metadata Portal, interact with MS data and metadata are currently under discussion. This includes defining database schemas, data transfer methods, and integration with external platforms to ensure smooth interoperability within Biohub systems and beyond.
 
-#### AI-Forward Data and Metadata Planning
+## VI. CZB Raw Data Handling Standards
 
-This section describes the strategies being developed that will enable easy ingestion of data generated by the Mass Spectrometry Platform. This strategy centers around the use of the Metadata Portal and “BDBags” in order to deliver data to users. 
+The data standards for the CZB MS platform are designed to be efficient and lightweight, focusing on three key areas: **1\)** ensuring that raw files are adequately backed up to prevent data loss, **2\)** reformatting raw data into open-source formats when possible, and **3\)** maintaining consistent conventions for naming and storing accessory files (such as FASTA and workflow files).
 
-### VI. CZB Raw Data Handling Standards
-
-The data standards for the CZB MS platform are designed to be efficient and lightweight, focusing on three key areas: **1\)** ensuring that raw files are adequately backed up to prevent data loss, **2\)** reformatting raw data into open-source formats when possible, and **3\)** maintaining consistent conventions for naming and storing auxiliary files (such as FASTA and workflow files).
-
-#### Raw Data Generation and Storage
+### Raw Data Generation and Storage
 
 <p align="center">
   <img src="images/data_gen.png" />
 </p>
 
-The schema for generating MS data and the processes for moving files from local storage to designated locations for long-term storage and processing are depicted above. Below is a more in-depth description of the process:
+The schema for generating MS data and the processes for moving files from local storage to designated locations for long-term storage and processing are depicted above. A more in-depth description of the process follows:
 
 1. **Sample Naming Standards:** Sample (raw file) names are generated by interactions between the BS3 system and BulkLoader, where BS3 passes sample names generated by the user and appends additional method-specific information to. The naming standard has been designed to capture both experimental and method information and goes as follows: ExperimentGroup\_PrepMethod\_Fx\_Ry\_Tz\_ExtendedMethodInformation.raw
 
-   1. **ExperimentGroup:** the experimental group the sample belongs to.
+   1. **ExperimentGroup:** the experimental group to which the sample belongs.
 
-   2. **PrepMethod:** the method the sample was prepared with. Default \= “Default”
+   2. **PrepMethod:** the method with which the sample was prepared. Default \= “Default”.
 
-   3. **Fx:** Fraction number (e.g., F1, F2, etc) when sample is fractionated. Default \= 1
+   3. **Fx:** Fraction number (e.g., F1, F2, etc) when sample is fractionated. Default \= 1.
 
-   4. **Rx:** Replicate of Experiment Group (e.g, R1, R2, etc.). Default \= 1\.
+   4. **Rx:** Replicate of Experiment Group (e.g, R1, R2, etc.). Default \= 1.
 
    5. **Tx**: Timeseries ID. Does not need to be time series, but any series data including dilution series. Default \= 1\.
 
-   6. ExtendedMethodInformation: refers to method text appended automatically by BulkLoader, which refers to a specific mass spectrometry method which the data was acquired with.
+   6. ExtendedMethodInformation: method text appended automatically by BulkLoader, referring to a specific mass spectrometry method used to acquire the data.
 
    7. When combined, the ExperimentGroup and PrepMethod form the core of the samples grouped together, while the rest of the information allows for the reconstruction of the replicates. For example:
 
 
 | Experiment Group | Description |
 | :---- | :---- |
-| DENV\_OrgIP\_F1\_R1\_T1\_timsTOFDIA\_30min\_method.raw | This file would refer to the first replicate of the DENV\_OrgIP group. The data would be captured with the method appended after T1, which mentioned it was a 30 minute method on the timsTOF in DIA |
-| ZIKVRifampin\_bulk\_F1\_R2\_T2\_Lumos\_DDA\_45Min.raw | This file refers to the second replicate of the ZIKVRifampoin\_bulk experiment group. Data would be acquired on the Thermo Fusion Lumos using DDA over a 45 minute gradient. | 
+| DENV\_OrgIP\_F1\_R1\_T1\_timsTOFDIA\_30min\_method.raw | This file would refer to the first replicate of the DENV\_OrgIP group. The data would be captured with the method appended after T1, which is a 30-minute method on the timsTOF in DIA. |
+| ZIKVRifampin\_bulk\_F1\_R2\_T2\_Lumos\_DDA\_45Min.raw | This file refers to the second replicate of the ZIKVRifampin\_bulk experiment group. Data would be acquired on the Thermo Fusion Lumos using DDA over a 45-minute gradient. | 
 
 2. **Sample Metadata Input:** Systems such as BS3 and BulkLoader, along with platform personnel, provide sample-level metadata to mass spectrometer-connected computers. This information is delivered as a CSV (.csv) file (Thermo Scientific machines) or an XLS (.xls) file (version 2007-2009) that is read by the mass spectrometer’s built-in import functions. These files contain information for the mass spectrometers to identify sample locations in the HPLC and define how spectra should be acquired (machine-level workflows/parameters).
 
 3. **Spectral Data Acquisition:** The spectral data is written in a vendor-specific format. For Thermo Scientific machines such as the Fusion Lumos or Q-Exactive HF, this results in a RAW binary file, which is not human-readable. For Bruker machines such as the timsTOF-SCP, a .d folder containing the spectral data is generated instead of a single file.
 
-4. **File Transfer to Storage Locations:** Once the raw spectral data objects are acquired, they are transferred to various storage locations for backup and processing. Currently, these locations include:
+4. **File Storage:** Once the raw spectral data objects are acquired, they are transferred to various storage locations for backup and processing. Currently, these locations include:
 
    1. **The “Experiment folder” on the CZB HPC (“Bruno”), with the following naming and storage conventions:** 
 
@@ -220,7 +219,7 @@ The schema for generating MS data and the processes for moving files from local 
 
 6. **Storage of Open-Source Files:** The open-source files **MUST** be stored in the same non-local locations as the raw files and placed in a /mzml folder. This consistent file storage structure is necessary to inform the Metadata Portal and BS3 systems about the file locations.
 
-#### Accessory Files
+### Accessory Files
 
 <p align="center">
   <img src="images/archive_current_sys.png" />
@@ -228,15 +227,15 @@ The schema for generating MS data and the processes for moving files from local 
 
 Accessory file standardization is crucial for maintaining a consistent and predictable data handling and processing environment. Given the myriad of parameters these files contain, even small changes can have significant impacts on the outcomes and as such must be standardized. **Accessory files include, but are not limited to**:
 
-* FASTA files (files containing protein sequences \- plain-text readable)  
-* MSP files (metabolomic spectral libraries \- plain text-readable/editable)  
-* MSP3 files (exported lipidomics spectral libraries \- text-editable)  
-* spectral matching algorithm workflow files (vary in format, often human-readable YAML-like or JSON files)  
+* FASTA files (containing protein sequences\; plain-text readable)  
+* MSP files (metabolomic spectral libraries\; plain text-readable/editable)  
+* MSP3 files (exported lipidomics spectral libraries\; text-editable)  
+* spectral matching algorithm workflow files (various formats, often human-readable YAML-like or JSON files)  
 * spectral matching algorithm parameter files (same as above)
 
 To ensure orderly management, these files will be organized into “**Development**,” “**Production**,” and “**Archived**” folders. This structure will facilitate the selection of optimized files, support the testing of future versions, and provide access to previous versions as needed. These files will be ‘unit tested’ to ensure they provide equivalent or better functionality than previous versions.
 
-The criteria for moving a file from development to production is:
+The criteria for moving a file from development to production are:
 
 1) For FASTA files, searches are successfully completed on test datasets acquired from the same organism as in the file.  
 2) For workflows, 3 datasets will be chosen (based on search type) and searches are successfully completed.  
@@ -352,7 +351,7 @@ Workflow file standardization is equally critical for ensuring consistent search
 * **Format:** DateMade\_SoftwareVersion\_PertinentInfo1-PertinentInfo2.workflow  
   * Example: 20240403\_FP22\_TLG1002-phosSTY-DIA-DDA.workflow
 
-### VII. CZB Data Processing Metadata Standards
+## VII. CZB Data Processing Metadata Standards
 
 <p align="center">
   <img src="images/pipeline.png" />
@@ -491,7 +490,7 @@ The pipeline outputs several tables, plots, and summaries for the files in the e
 | Pos\_mode\_group\_significance\_testing.csv | All vs. all statistical comparisons for positive-mode data |
 | Neg\_mode\_group\_significance\_testing.csv | All vs. all statistical comparisons for negative-mode data |
 
-### VIII. CZB Sample-Level Metadata Standards
+## VIII. CZB Sample-Level Metadata Standards
 
 <p align="center">
   <img src="images/sample_metadata.png" />
@@ -541,7 +540,7 @@ Currently, BS3 passes user-generated metadata to BulkLoader, which appends addit
 | CSBSF\_EID | string | Yes | Required to return information to Metadata Portal about linked Experimenst |
 | platform\_UID | string | Yes | Automatically generated concatenation of MS type (proteomics or metabolomics) \+ machine name \+ ID field. Allows for distinguishing between different run types on different machines. |
 
-### IX. CZB Experiment-Level Metadata Standards
+## IX. CZB Experiment-Level Metadata Standards
 
 <p align="center">
   <img src="images/experiment_metadata.png" />
@@ -555,7 +554,7 @@ Experiment-level metadata captures summary information about an entire experimen
 
 * **Tracking and Linking Datasets:** We are implementing tracking IDs that will allow us to associate experiments with linked datasets captured by different modalities. This integration will enable more seamless cross-modality analyses and enhance the overall data management framework.
 
-#### Captured Sample Metadata
+#### Captured Metadata
 
 Currently we capture the following information:
 
@@ -569,7 +568,7 @@ Currently we capture the following information:
 
 #### File Storage Structure
 
-In this section, we will outline a proposed folder structure for cataloging and saving experimental data. The primary goal is to standardize the organization of stored files across experiments, whether they involve a single or multiple modalities. A consistent folder structure will facilitate manual searches for important raw files or results and ensure reliable access for API calls from external systems. Key considerations:
+This section outlines a proposed folder structure for cataloging and saving experimental data. The primary goal is to standardize the organization of stored files across experiments, whether they involve a single or multiple modalities. A consistent folder structure will facilitate manual searches for important raw files or results and ensure reliable access for API calls from external systems. Key considerations:
 
 * **Uniform structure across experiments:** Regardless of the experimental scope, the folder structure should remain consistent. This uniformity will simplify the process of locating and accessing files, both manually and programmatically.
 
@@ -579,7 +578,7 @@ In this section, we will outline a proposed folder structure for cataloging and 
   <img src="images/file_structure.png" />
 </p>
 
-**Table describing each folder in the hierarchy:**
+**Description of each folder in the hierarchy:**
 
 | Folder | Content Source | Content Description |
 | :---- | :---- | :---- |
@@ -608,11 +607,11 @@ Acquired spectral data are often re-searched with different workflows or paramet
 
   * All results are kept, and no results are deleted.
 
-### X. CZB Project-Level Metadata Standards
+## X. CZB Project-Level Metadata Standards
 
 Similar to experiment-level metadata, project-level metadata refers to aggregate metadata about projects. Projects can have multiple experiment sets aimed at answering research questions. Programmatic access to project-level metadata is beyond the purview of the current MS standard. However, these data will largely be handled by the Metadata Portal and BS3. Future iterations of platform standards should explore avenues for tracking this information at the platform level.
 
-### XI. Platform Ontology and Annotation standards
+## XI. Platform Ontology and Annotation standards
 
 To further standardize collected data, we will share biologically relevant ontology standards with CZB’s Metadata Standards. These are built into the sample (MAGE-TAB Proteomics) and experiment-level standards we have developed/accepted/adapted, including the following:
 
@@ -638,7 +637,7 @@ In addition, protein and metabolite identifications will be appended with severa
 
   * Feature\_annotations.csv \- Includes the following ID types: metabolite, kegg\_ID, accession, name, smiles, chemspider\_id, and chebi\_id.
 
-### XII. Data Packaging for External Transmission
+## XII. Data Packaging for External Transmission
 
 We propose that whenever datasets are shared publicly (outside of the CZ Biohub ecosystem), when they are associated with a manuscript, for example, such datasets should be packaged in “Big Data Bags” (BDBags). The concept of BDBags is introduced [here](https://ieeexplore.ieee.org/document/7840618). BDBags are designed to encapsulate all the necessary metadata required to locate and access large datasets within a small and lightweight package.
 
@@ -672,7 +671,7 @@ We have taken inspiration from both ISA standards and BDBags to design an easily
 
 **Sample tab-delimited file:** MAGE-TAB Proteomics ([described above](#sample-metadata-format-standards)) will take the place of the ISA tabular document.
 
-**Omics linking tables:** A text file allowing users to link additional modalities to the MS data (or other MS experiments such as linked metabolomics and proteomics).
+**Omics linking tables:** A text file allowing users to link additional modalities to MS data (or other MS experiments such as linked metabolomics and proteomics).
 
 **Omics data tables:** Processed and raw abundance tables for both metabolomics and proteomics.
 
