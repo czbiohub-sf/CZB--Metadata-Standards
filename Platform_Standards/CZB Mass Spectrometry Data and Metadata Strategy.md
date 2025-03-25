@@ -8,7 +8,7 @@ The key words **"MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", 
 
 ## **Executive Summary**
 
-This document outlines the strategy for establishing mass spectrometry data standards within the CZB ecosystem. These standards are designed to:
+This document outlines the established mass spectrometry data standards within the CZB ecosystem. These standards are designed to:
 
 1. **Facilitate Collaboration:** Standardized processing, analysis, and annotation pipelines enables more seamless cross-group analyses of data.   
 2. **Streamline Data Analysis and Reuse:** Packaged data plus metadata contain all aspects necessary to understand datasets without additional human intervention.  
