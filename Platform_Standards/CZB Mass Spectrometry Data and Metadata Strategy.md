@@ -537,7 +537,7 @@ Currently, BS3 passes user-generated metadata to BulkLoader, which appends addit
 | Timepoint | numeric | Yes | Timepoint of sample, if any; default is 1 for no timepoints |
 | Serialized\_ID | string | Yes | Concatenated string of Samplename \+ Preparation \+ Fraction \+ Replicate \+ Timepoint \+ MS method |
 | CZBSF\_PID | string | Yes | Required to return information to Metadata Portal about linked Projects |
-| CSBSF\_EID | string | Yes | Required to return information to Metadata Portal about linked Experimenst |
+| CSBSF\_EID | string | Yes | Required to return information to Metadata Portal about linked Experiments |
 | platform\_UID | string | Yes | Automatically generated concatenation of MS type (proteomics or metabolomics) \+ machine name \+ ID field. Allows for distinguishing between different run types on different machines. |
 
 ## IX. CZB Experiment-Level Metadata Standards
