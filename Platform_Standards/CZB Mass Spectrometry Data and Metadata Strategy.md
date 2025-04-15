@@ -542,10 +542,6 @@ Currently, BS3 passes user-generated metadata to BulkLoader, which appends addit
 
 ## IX. CZB Experiment-Level Metadata Standards
 
-<p align="center">
-  <img src="images/experiment_metadata.png" />
-</p>
-
 Experiment-level metadata captures summary information about an entire experiment, rather than being associated with individual samples. An experiment encompasses a batch of samples that are prepared and run on the mass spectrometer with the aim of answering a specific research question.
 
 * **Defining an Experiment:** An experiment is considered complete once all samples initially listed on the sample-level experiment metadata sheet have been processed. Any additional samples added later are treated as a separate experiment to maintain the integrity and completeness of the original experiment.
